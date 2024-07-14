@@ -1,0 +1,38 @@
+# Ignore Mac system files
+.DS_Store
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+
+# Ignore Ruby specific files
+*.gem
+*.rbc
+.ruby-version
+.ruby-gemset
+
+# Ignore log and temporary files
+/log/
+/tmp/
+*.log
+
+# Ignore coverage data
+/coverage/
+
+# Ignore bundler config
+/.bundle
+/vendor/bundle
+
+# Ignore node modules (in case of JavaScript dependencies)
+/node_modules/
+
+# Ignore compiled files
+*.o
+*.so
+*.obj
+
+# Ignore byebug history
+.byebug_history
+
+# Ignore Gemfile.lock for libraries
+Gemfile.lock
