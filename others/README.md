@@ -110,3 +110,98 @@ Security.flag_fraudulent_activity(-500)
   - Example: `Security.flag_fraudulent_activity(-500)` checks if a transaction amount is suspicious and logs the result.
 
 By including the `Shared` module in different ways, we define whether its methods are available at the instance level or class level. This allows for flexible design in a banking system where some functionalities are better suited as instance-specific (like account actions) and others as class-wide operations (like security checks).
+
+
+
+---
+
+
+# Understanding `rescue nil` in Ruby
+
+`rescue nil` is a Ruby-specific shorthand used for exception handling. It allows you to catch exceptions and return `nil` if an error occurs. This helps in preventing your program from crashing and allows it to continue executing. However, it is crucial to use it carefully to avoid hiding significant errors that need attention.
+
+## How `rescue nil` Works
+
+- When an exception is raised in a piece of code followed by `rescue`, it will be caught.
+- `rescue nil` catches the exception and returns `nil` instead of raising the error.
+- This is useful when you want to ignore errors and proceed without interruption.
+
+### Basic Syntax
+
+```ruby
+value = some_risky_operation rescue nil
+```
+
+If `some_risky_operation` raises an exception, `value` will be assigned `nil`.
+
+## Example Usage
+
+### Example 1: Handling a Potential Error
+
+```ruby
+value = Integer('abc') rescue nil
+puts value  # Output: nil
+```
+
+- Trying to convert the string `'abc'` to an integer will raise an `ArgumentError` because `'abc'` is not a valid integer.
+- `rescue nil` catches the exception and assigns `nil` to `value`.
+- The program continues to run, and `nil` is printed.
+
+### Example 2: Ignoring File Not Found Error
+
+```ruby
+file_content = File.read('non_existent_file.txt') rescue nil
+puts file_content  # Output: nil
+```
+
+- If the file `'non_existent_file.txt'` does not exist, `File.read` will raise an `Errno::ENOENT` exception.
+- `rescue nil` catches this exception and sets `file_content` to `nil`.
+- This allows the program to continue running without crashing due to the missing file.
+
+## When to Use `rescue nil`
+
+- **Simple Error Ignoring:** Use `rescue nil` when you want to ignore specific errors silently and proceed.
+- **Optional Operations:** It is useful for optional operations where it is acceptable to continue with `nil` if the operation fails (e.g., optional configurations, data retrieval).
+
+## When Not to Use `rescue nil`
+
+- **Silent Failures:** Be cautious using `rescue nil` as it can lead to silent failures, making debugging difficult if errors are ignored without logging or alerting.
+- **Important Exceptions:** Avoid using it in critical sections of code where you need to know and handle exceptions explicitly.
+
+## Comparison with `try...catch`
+
+`rescue` in Ruby serves a similar purpose to `try...catch` in other languages like Java, JavaScript, or Python (`try...except`).
+
+### Ruby (`rescue`):
+```ruby
+begin
+  risky_operation
+rescue SomeError => e
+  puts "An error occurred: #{e.message}"
+end
+```
+
+### JavaScript (`try...catch`):
+```javascript
+try {
+  riskyOperation();
+} catch (error) {
+  console.log("An error occurred: " + error.message);
+}
+```
+
+### Python (`try...except`):
+```python
+try:
+    risky_operation()
+except SomeError as e:
+    print(f"An error occurred: {e}")
+```
+
+## Summary
+
+- `rescue nil` in Ruby is a convenient way to catch and ignore exceptions, returning `nil` instead.
+- It allows the program to continue running without interruption when an error occurs.
+- Use it wisely to avoid hiding important errors that could lead to silent failures in your application.
+
+
